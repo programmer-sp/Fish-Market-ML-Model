@@ -1,13 +1,12 @@
 import os
+import numpy as np
 from flask import Flask, render_template, request
 import pickle
-import numpy as np
 
 app = Flask(__name__)
 
 # Load the trained model
-with open("fish_market_model.pkl", "rb") as model_file:
-    model = pickle.load(model_file)
+model = pickle.load(open("fish_market_model.pkl", "rb"))
 
 
 @app.route("/")
@@ -33,5 +32,6 @@ def predict():
 
 if __name__ == "__main__":
     # Use the PORT environment variable provided by Heroku
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    # port = int(os.environ.get("PORT", 5000))
+    # app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
