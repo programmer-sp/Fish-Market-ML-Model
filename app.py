@@ -1,45 +1,37 @@
-# from flask import Flask, render_template, request
-# import pickle
-# import numpy as np
-
-# app = Flask(__name__)
-
-# # Load the trained model
-# with open('fish_market_model.pkl', 'rb') as model_file:
-#     model = pickle.load(model_file)
-
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
-# @app.route('/predict', methods=['POST'])
-# def predict():
-#     # Get user input
-#     length1 = float(request.form['length1'])
-#     length2 = float(request.form['length2'])
-#     length3 = float(request.form['length3'])
-#     height = float(request.form['height'])
-#     width = float(request.form['width'])
-
-#     # Make prediction
-#     features = np.array([[length1, length2, length3, height, width]])
-#     prediction = model.predict(features)
-
-#     return render_template('index.html', prediction=prediction[0])
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
-
 import os
-from flask import Flask
+from flask import Flask, render_template, request
+import pickle
+import numpy as np
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello():
-    return 'Hello, World!'
+# Load the trained model
+with open("fish_market_model.pkl", "rb") as model_file:
+    model = pickle.load(model_file)
 
-if __name__ == '__main__':
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+
+@app.route("/predict", methods=["POST"])
+def predict():
+    # Get user input
+    length1 = float(request.form["length1"])
+    length2 = float(request.form["length2"])
+    length3 = float(request.form["length3"])
+    height = float(request.form["height"])
+    width = float(request.form["width"])
+
+    # Make prediction
+    features = np.array([[length1, length2, length3, height, width]])
+    prediction = model.predict(features)
+
+    return render_template("index.html", prediction=prediction[0])
+
+
+if __name__ == "__main__":
     # Use the PORT environment variable provided by Heroku
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
