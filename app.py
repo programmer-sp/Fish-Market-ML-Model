@@ -1,16 +1,16 @@
-from flask import Flask, render_template, request
+# from flask import Flask, render_template, request
 # import pickle
 # import numpy as np
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-# Load the trained model
+# # Load the trained model
 # with open('fish_market_model.pkl', 'rb') as model_file:
 #     model = pickle.load(model_file)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
 
 # @app.route('/predict', methods=['POST'])
 # def predict():
@@ -27,5 +27,19 @@ def index():
 
 #     return render_template('index.html', prediction=prediction[0])
 
+# if __name__ == '__main__':
+#     app.run(debug=True)
+
+import os
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Use the PORT environment variable provided by Heroku
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
