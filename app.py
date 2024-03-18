@@ -1,12 +1,13 @@
 from flask import Flask, render_template, request
-import pickle
+# import pickle
 import numpy as np
 
 app = Flask(__name__)
 
 # Load the trained model
 with open('fish_market_model.pkl', 'rb') as model_file:
-    model = pickle.load(model_file)
+    # model = pickle.load(model_file)
+    model = 0
 
 @app.route('/')
 def index():
@@ -23,9 +24,10 @@ def predict():
 
     # Make prediction
     features = np.array([[length1, length2, length3, height, width]])
-    prediction = model.predict(features)
+    # prediction = model.predict(features)
 
-    return render_template('index.html', prediction=prediction[0])
+    # return render_template('index.html', prediction=prediction[0])
+    return render_template('index.html', 0)
 
 if __name__ == '__main__':
     app.run(debug=True)
